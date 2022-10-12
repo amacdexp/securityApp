@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@sap/xsenv": "latest",
+    "@sap/xssec": "latest",
+    "express": "^4.16.2",
+    "passport": "^0.4.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

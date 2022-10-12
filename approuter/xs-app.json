@@ -1,0 +1,20 @@
+{
+    "welcomeFile": "homepage.html",
+    "authenticationMethod": "route",
+      "routes": [
+        {
+          "source": "^/route-me-to/(.*)$",
+          "target": "$1",
+          "destination": "destination_attriapp",
+          "authenticationType": "xsuaa",
+          "csrfProtection" : false
+        },
+        {
+          "source": "^/(.*)$",
+          "localDir": "resources",
+          "authenticationType": "xsuaa",
+          "scope": "$XSAPPNAME.scopeforview",
+          "csrfProtection" : false
+        }
+      ]
+    }

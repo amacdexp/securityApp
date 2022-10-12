@@ -1,0 +1,25 @@
+---
+applications:
+  - name: attriapp
+    path: app
+    memory: 64M
+    routes:
+    - route: attriapp.cfapps.eu10.hana.ondemand.com
+    services:
+      - attriXsuaa
+  - name: attrirouter
+    path: approuter
+    memory: 128M
+    routes:
+    - route: attrirouter.cfapps.eu10.hana.ondemand.com
+    env:
+      destinations: >
+        [
+          {
+            "name":"destination_attriapp",
+            "url":"https://attriapp.cfapps.eu10.hana.ondemand.com",
+            "forwardAuthToken": true
+          }
+        ]
+    services:
+      - attriXsuaa

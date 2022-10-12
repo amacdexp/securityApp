@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <script src = "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      function write(text, idOfP){
+        const p = document.createElement("P")                        
+        p.appendChild(document.createTextNode("-> " + text))                                           
+        document.getElementById(idOfP).appendChild(p)
+      }
+
+      function callCreate(employeeName, employeeCountry){
+          $.post({
+            url: `/route-me-to/create`,
+            data: JSON.stringify({
+              name: `${employeeName}`,
+              country: `${employeeCountry}`
+            }),
+            headers: { 
+              'Content-Type': 'application/json'              
+            },
+            success: function(result, status, xhr){
+              write(result, "createP")
+            },
+            error: function(xhr, status, error){
+              write(xhr.responseText, "createP")
+            }
+          })
+      }
+
+      function callManage(employeeName){
+          $.ajax({
+            type: "PUT",
+            url: `/route-me-to/manage`,
+            data: JSON.stringify({
+              name: `${employeeName}`
+            }),
+            headers: { 
+              'Content-Type': 'application/json'              
+            },
+            success: function(result, status, xhr){
+              write(result, "manageP")
+            },
+            error: function(xhr, status, error){
+              write(xhr.responseText, "manageP")
+            }
+          })
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Homepage Employee Management</h1>
+    <h4>List of Employees</h4>
+    <p id="createP">Create: 
+      <input id="employeeFieldId" size="10">
+      <input id="countryFieldId" value="DE" size="7">
+      <button type="button" onclick="callCreate(employeeFieldId.value, countryFieldId.value)">Submit</button></p>
+    <h4>Manage Employee</h4>
+    <p id="manageP">Increase Salary for: 
+      <input id="salaryFieldId" size="10">
+      <button type="button" onclick="callManage(salaryFieldId.value)">Submit</button></p>
+  </body>
+</html>

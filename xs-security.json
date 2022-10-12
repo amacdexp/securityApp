@@ -1,0 +1,48 @@
+{
+    "xsappname": "attrixsappname",
+    "tenant-mode": "dedicated",
+    "scopes": [{
+            "name": "$XSAPPNAME.scopeforview",
+            "description": "Scope required for viewing employee list."
+        },{
+            "name": "$XSAPPNAME.scopeforcreate",
+            "description": "Scope required for creating new employee"
+        },{
+            "name": "$XSAPPNAME.scopeformanage",
+            "description": "Scope required for managing existing employee"
+        }
+    ],
+    "attributes" : [ { 
+            "name" : "Country", 
+            "description" : "Contains country information of assigned user", 
+            "valueType" : "string",
+            "valueRequired" : "false" 
+        }
+    ],     
+    "role-templates": [{
+            "name": "UserRole",
+            "description": "Role for end users, allows to view list of employees",
+            "scope-references": ["$XSAPPNAME.scopeforview"]
+        },{
+            "name": "AssistantRole",
+            "description": "Role for assistants, allows to view and create employees.",
+            "scope-references": ["$XSAPPNAME.scopeforview", "$XSAPPNAME.scopeforcreate"],
+            "attribute-references": [ { "name" : "Country" } ]  
+        },{
+            "name": "ManagerRole",
+            "description": "Role for managers, allows to view, create and manage employees.",
+            "scope-references": ["$XSAPPNAME.scopeforview", "$XSAPPNAME.scopeforcreate", "$XSAPPNAME.scopeformanage"]
+        }
+    ],
+    "role-collections": [{
+        "name": "UserRoles",
+        "role-template-references": [ "$XSAPPNAME.UserRole" ]
+      },{
+        "name": "ManagerRoles",
+        "role-template-references": [ "$XSAPPNAME.ManagerRole" ]
+      },{
+        "name": "AssistantRoles",
+        "role-template-references": [ "$XSAPPNAME.AssistantRole" ]
+      }
+    ]
+}
